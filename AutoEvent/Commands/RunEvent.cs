@@ -21,8 +21,8 @@ namespace AutoEvent.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            Player admin = Player.Get((sender as CommandSender).SenderId);
-            if (Plugin.CustomConfig.DonatorGroups.Contains(admin.GroupName))
+            Player pl = Player.Get((sender as CommandSender).SenderId);
+            if (Plugin.CustomConfig.DonatorGroups.Contains(pl.GroupName))
             {
                 response = $"<color=red>Вы не можете это использовать!</color>";
                 return false;
@@ -34,7 +34,7 @@ namespace AutoEvent.Commands
             }
             if (Plugin.IsEventRunning)
             {
-                response = $"Мини-Игра уже проводится!";
+                response = $"Ивент уже проводится!";
                 return false;
             }
             if (arguments.Count != 1)
@@ -54,13 +54,21 @@ namespace AutoEvent.Commands
                             var eng = type.GetMethod("OnStart");
                             if (eng != null)
                             {
-                                sender.Respond("Пытаюсь запустить ивент, OnStart не null...");
-                                eng.Invoke(Activator.CreateInstance(type), null);
+                                try 
+                                { 
+                                    eng.Invoke(Activator.CreateInstance(type), null);
+                                }
+                                catch (Exception ex)
+                                {
+                                    response = $"Произошло необработанное исключение при запуске ивента. Напишите KoT0XleB#4663 и приложите данное сообщение:\n";
+                                    + $"Error: {ex.Message}\nStacktrace: {ex.StackTrace}.";
+                                    return false;
+                                }
                                 Round.Lock = true;
                                 response = "Ивент найден, запускаю.";
                                 return true;
                             }
-                            response = "eng оказался нуллом. Каким-то образом, класс который был выбран не имеет в себе OnStart()";
+                            response = "Метод для запуска равен Null. Каким-то образом, объект, класс которого был выбран не имеет в себе метода OnStart()";
                             return false;
                         }
                     }
