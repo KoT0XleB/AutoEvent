@@ -60,7 +60,7 @@ namespace AutoEvent.Commands
                                 }
                                 catch (Exception ex)
                                 {
-                                    response = $"Произошло необработанное исключение при запуске ивента. Напишите KoT0XleB#4663 и приложите данное сообщение:\n";
+                                    response = $"Произошло необработанное исключение при запуске ивента. Напишите KoT0XleB#4663 и приложите данное сообщение:\n"
                                     + $"Error: {ex.Message}\nStacktrace: {ex.StackTrace}.";
                                     return false;
                                 }
