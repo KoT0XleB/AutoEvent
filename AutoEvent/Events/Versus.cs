@@ -1,6 +1,5 @@
 ﻿using AutoEvent.Functions;
 using AutoEvent.Interfaces;
-using Interactables.Interobjects.DoorUtils;
 using MEC;
 using Mirror;
 using Qurre;
@@ -18,6 +17,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static AutoEvent.Functions.MainFunctions;
 using Random = UnityEngine.Random;
+//What? Why are there so many NOT USED references?
 
 namespace AutoEvent.Events
 {
